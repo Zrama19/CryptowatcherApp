@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './components/Landing';
 import Coins from './components/Coins';
@@ -15,13 +15,10 @@ const getLibrary = (provider) => {
 };
 
 const App = () => {
-  const [wallet, setWallet] = useState();
-  // console.log(wallet);
-
   const currentCoinPage = (path) => {};
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <Navbar setWallet={setWallet} />
+      <Navbar />
       <Router>
         <Routes>
           <Route
@@ -35,14 +32,11 @@ const App = () => {
 
           <Route
             path='/coins/:path'
-            element={<Coins function={currentCoinPage} wallet={wallet} />}
+            element={<Coins function={currentCoinPage} />}
           ></Route>
 
           <Route path='/signup' element={<Signup />}></Route>
-          <Route
-            path='/calculator'
-            element={<Future wallet={wallet} />}
-          ></Route>
+          <Route path='/calculator' element={<Future />}></Route>
           <Route path='*' element={<ErrorPage />}></Route>
         </Routes>
       </Router>

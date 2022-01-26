@@ -1,127 +1,112 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import Web3 from 'web3';
+import Web3Modal from 'web3modal';
 import './Featured.css';
-import CoinOption from './CoinOption';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const Calculator = (props) => {
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [currency, setCurrency] = useState();
-  const [walletData, setWalletData] = useState();
-  const [coinData, setCoinData] = useState();
-  const [coinOption, setCoinOption] = useState();
-  const [coin, setCoin] = useState();
-  const walletAddress = props.wallet;
-  const walletFixed = walletData?.toFixed(3);
-  const [coinLoaded, setCoinLoaded] = useState(true);
-  const [money, setMoney] = useState();
-  const [coinsLoaded, setCoinsLoaded] = useState(true);
-
-  const getCurrency = (e) => {
-    setCurrency(e.target.value);
-  };
-
-  const getCoin = (e) => {
-    setCoin(e.target.value);
-  };
-
-  const getMoney = (e) => {
-    setMoney(e.target.value);
-    e.preventDefault();
-  };
+  const [account, setAccount] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [modalLoading, setModalLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1=&sparkline=false`;
-
-    axios
-      .get(url)
-      .then((response) => {
-        setCoinOption(response.data);
-        setCoinsLoaded(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    (async () => {
+      if (localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER'))
+        await connectPrompt();
+    })();
+    //eslint-disable-next-line
   }, []);
 
-  console.log(coinOption);
+  async function connectPrompt() {
+    if (window.ethereum) {
+      const provider = await web3Modal.connect();
+      const web3 = new Web3(provider);
+      const firstAccount = await web3.eth.getAccounts().then((data) => data[0]);
+      setAccount(firstAccount);
+      setIsLoading(false);
+    } else {
+      setModalLoading(false);
+    }
+  }
 
-  useEffect(() => {
-    const urlWallet = `https://openapi.debank.com/v1/user/chain_balance?id=${walletAddress}&chain_id=eth`;
+  async function disconnect() {
+    await web3Modal.clearCachedProvider();
+    setAccount('');
+    setIsLoading(true);
+  }
 
-    axios
-      .get(urlWallet)
-      .then((response) => {
-        setWalletData(response.data.usd_value);
-        setIsLoaded(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [walletAddress]);
-  //eslint-disable-next-line
-  const getCoinApi = async () => {
-    const coinUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coin}&order=market_cap_desc&per_page=100&page=1&sparkline=false`;
-    axios
-      .get(coinUrl)
-      .then((response) => {
-        setCoinData(response.data[0].current_price);
-        setCoinLoaded(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log(coinUrl);
-  };
-
-  useEffect(() => {
-    getCoinApi();
-    //eslint-disable-next-line
-  }, [money, coin, currency]);
+  const providerOptions = {};
+  const web3Modal = new Web3Modal({
+    network: 'mainnet',
+    cacheProvider: true,
+    providerOptions, // required
+  });
 
   return (
     <div className='container'>
-      <div className='connect-wallet'>
-        {isLoaded ? (
-          <h3>Connect your Wallet to view Balance</h3>
+      <div>
+        {isLoading ? (
+          <Button
+            variant='contained'
+            onClick={() => {
+              connectPrompt();
+              handleOpen();
+            }}
+          >
+            Connect
+          </Button>
         ) : (
-          <div>
-            <h3>Current Wallet Balance: ${walletFixed}</h3>
-            <div>
-              <label>Choose a Currency: </label>
-              <select name='currencies' onChange={getCurrency} required>
-                <option value='null'>----</option>
-                <option value='USD'>USD</option>
-                <option value='RUB'>RUB</option>
-                <option value='AED'>AED</option>
-              </select>
-              <div>
-                <input type='number' value={money} onChange={getMoney}></input>
-              </div>
-            </div>
-            <div>
-              <label>Choose a coin:</label>
-              {coinsLoaded ? null : (
-                <select name='cryptos' onChange={getCoin}>
-                  <option value='null'>----</option>
-                  {coinOption.map((coinOption, index) => {
-                    return <CoinOption coinOption={coinOption} key={index} />;
-                  })}
-                </select>
-              )}
-            </div>
-            <div>
-              {coinLoaded ? null : (
-                <p>
-                  You have{' '}
-                  {(money / coinData)
-                    ?.toFixed(2)
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
-                  worth of {coin} based on {currency} currency.
-                </p>
-              )}
-            </div>
-          </div>
+          <Button variant='contained' onClick={() => disconnect()}>
+            Disconnect
+          </Button>
         )}
+      </div>
+      <div>
+        {modalLoading ? null : (
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby='modal-modal-title'
+            aria-describedby='modal-modal-description'
+          >
+            <Box sx={style}>
+              <Typography id='modal-modal-title' variant='h6' component='h2'>
+                If you are seeing this error, you need to install the Metamask
+                Wallet extension.
+              </Typography>
+              <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+                <a
+                  href='https://metamask.io/download/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  Metamask Download
+                </a>
+              </Typography>
+            </Box>
+          </Modal>
+        )}
+      </div>
+      <div>
+        <p>Currently connected with : {account}</p>
       </div>
     </div>
   );
