@@ -18,8 +18,8 @@ const App = () => {
   const currentCoinPage = (path) => {};
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <ResponsiveAppBar />
       <Router>
+        <ResponsiveAppBar />
         <Routes>
           <Route
             path='/'
