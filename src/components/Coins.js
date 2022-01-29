@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Cryptocard from './Cryptocard';
 import './Coins.css';
 import { useLocation } from 'react-router-dom';
-import CoinsPage from './CoinsPages';
 import Newdata from './Newdata';
 
 const Coins = (props) => {
@@ -12,7 +11,8 @@ const Coins = (props) => {
   const modalId = [];
   const [modalData, setModalData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-
+  const prev = '<';
+  const next = '>';
   const click = [];
 
   const modalApi = async () => {
@@ -83,7 +83,6 @@ const Coins = (props) => {
               );
             })}
           </div>
-          <div className='button-coins'></div>
         </div>
       </div>
       <div className='button-row'>
@@ -91,19 +90,17 @@ const Coins = (props) => {
           className='button-numbers'
           href={`/coins/${Number(pageIdSliced) - 1}`}
         >
-          Previous
+          {prev}
         </a>
-        {coinsTotal.map((page, index) => {
-          return <CoinsPage page={page} key={index} />;
-        })}
 
         <a
           className='button-numbers'
           href={`/coins/${Number(pageIdSliced) + 1}`}
         >
-          Next
+          {next}
         </a>
       </div>
+
       <div>
         {isLoading ? null : (
           <Newdata handleNewdata={click} modalData={modalData} />

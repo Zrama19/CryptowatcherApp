@@ -7,8 +7,8 @@ import Signup from './components/Signup';
 import Future from './components/Calculator';
 import { Web3ReactProvider } from '@web3-react/core';
 import Web3 from 'web3';
-import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ResponsiveAppBar from './components/NavBussy';
 
 const getLibrary = (provider) => {
   return new Web3(provider);
@@ -18,7 +18,7 @@ const App = () => {
   const currentCoinPage = (path) => {};
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <Navbar />
+      <ResponsiveAppBar />
       <Router>
         <Routes>
           <Route

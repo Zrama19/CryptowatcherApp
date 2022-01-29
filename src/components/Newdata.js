@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import './Newdata.css';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -35,7 +36,7 @@ const Newdata = (props) => {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={style}>
+        <Box className='mobile' sx={style}>
           <Typography id='modal-modal-title' variant='h6' component='h2'>
             {props.modalData.name}
             <img src={props.modalData.image.thumb} alt='/'></img>
