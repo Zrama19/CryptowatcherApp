@@ -9,6 +9,11 @@ const About = () => {
         <h1 className='about-h1'>
           My name is Zarif Ramazanov, the creator of CryptoWatcher.
         </h1>
+        <p>
+          CryptoWatcher is a React.JS app designed to easily access the Crypto
+          Currency marketplace, learn extensive information about the different
+          coins, and even calculate prices using the CW Calculator.
+        </p>
       </div>
     </div>
   );
