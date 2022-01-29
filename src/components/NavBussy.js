@@ -12,9 +12,11 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import logo from '../assets/CW-logos.jpeg';
 import './NavBussy.css';
+import { useNavigate } from 'react-router-dom';
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -24,8 +26,23 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(null);
   };
 
+  const handleCoins = () => {
+    navigate('/coins/1');
+  };
+
+  const handleAbout = () => {
+    navigate('/about');
+  };
+
+  const handleCalc = () => {
+    navigate('/calculator');
+  };
+
+  const handleHome = () => {
+    navigate('/');
+  };
   return (
-    <AppBar position='static'>
+    <AppBar position='static' onScroll={handleCloseNavMenu}>
       <Container maxWidth='xl' className='appbar'>
         <Toolbar disableGutters>
           <Typography
@@ -48,7 +65,6 @@ const ResponsiveAppBar = () => {
               aria-controls='menu-appbar'
               aria-haspopup='true'
               onClick={handleOpenNavMenu}
-              color='inherit'
               className='mobile-menu-icon'
             >
               <MenuIcon />
@@ -71,25 +87,17 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <MenuItem>
-                <Typography textAlign='center'>
-                  <a href='/'>Home</a>
-                </Typography>
+              <MenuItem onClick={handleHome}>
+                <Typography textAlign='center'>Home</Typography>
               </MenuItem>
-              <MenuItem>
-                <Typography textAlign='center'>
-                  <a href='/coins/1'>Coins</a>
-                </Typography>
+              <MenuItem onClick={handleCoins}>
+                <Typography textAlign='center'>Coins</Typography>
               </MenuItem>
-              <MenuItem>
-                <Typography textAlign='center'>
-                  <a href='/#footsies'>Contact</a>
-                </Typography>
+              <MenuItem onClick={handleAbout}>
+                <Typography textAlign='center'>About</Typography>
               </MenuItem>
-              <MenuItem>
-                <Typography textAlign='center'>
-                  <a href='/calculator'>Calculator</a>
-                </Typography>
+              <MenuItem onClick={handleCalc}>
+                <Typography textAlign='center'>Calculator</Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -106,17 +114,29 @@ const ResponsiveAppBar = () => {
             </a>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-              <a href='/'>Home</a>
+            <Button
+              onClick={handleHome}
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
+              Home
             </Button>
-            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-              <a href='/coins/1'>Coins</a>
+            <Button
+              onClick={handleCoins}
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
+              Coins
             </Button>
-            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-              <a href='/#footsies'>Contact</a>
+            <Button
+              onClick={handleAbout}
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
+              About
             </Button>
-            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-              <a href='/calculator'>Calculator</a>
+            <Button
+              onClick={handleCalc}
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
+              Calculator
             </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
