@@ -9,20 +9,3 @@
 .mobile-menu-icon {
   color: #000;
 }
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-}
-
-.nav-li {
-  padding: 0 1rem;
-}
-
-.nav-a {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #333;
-}
