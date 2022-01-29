@@ -28,18 +28,22 @@ const ResponsiveAppBar = () => {
 
   const handleCoins = () => {
     navigate('/coins/1');
+    handleCloseNavMenu();
   };
 
   const handleAbout = () => {
     navigate('/about');
+    handleCloseNavMenu();
   };
 
   const handleCalc = () => {
     navigate('/calculator');
+    handleCloseNavMenu();
   };
 
   const handleHome = () => {
     navigate('/');
+    handleCloseNavMenu();
   };
   return (
     <AppBar position='static' onScroll={handleCloseNavMenu}>
