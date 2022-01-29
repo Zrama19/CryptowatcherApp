@@ -24,9 +24,18 @@ const Calculator = (props) => {
   const [account, setAccount] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [modalLoading, setModalLoading] = useState(true);
+  const [accountLoading, setAccountLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const accountHandle = () => {
+    if (window.ethereum) {
+      setAccountLoading(false);
+    } else {
+      setAccountLoading(true);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -70,13 +79,20 @@ const Calculator = (props) => {
             onClick={() => {
               connectPrompt();
               handleOpen();
+              accountHandle();
             }}
           >
-            Connect
+            Connect Wallet
           </Button>
         ) : (
-          <Button variant='contained' onClick={() => disconnect()}>
-            Disconnect
+          <Button
+            variant='contained'
+            onClick={() => {
+              disconnect();
+              setAccountLoading(true);
+            }}
+          >
+            Disconnect Wallet
           </Button>
         )}
       </div>
@@ -102,12 +118,15 @@ const Calculator = (props) => {
                   Metamask Download
                 </a>
               </Typography>
+              <Button onClick={handleClose}>Got it!</Button>
             </Box>
           </Modal>
         )}
       </div>
       <div>
-        <p>Currently connected with : {account}</p>
+        {accountLoading ? null : (
+          <p>You are currently connected with Wallet Address: {account}</p>
+        )}
       </div>
     </div>
   );
