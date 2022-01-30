@@ -39,6 +39,7 @@ const Newdata = (props) => {
         <Box className='mobile' sx={style}>
           <Typography id='modal-modal-title' variant='h6' component='h2'>
             {props.modalData.name}
+
             <img src={props.modalData.image.thumb} alt='/'></img>
           </Typography>
           <Typography id='modal-modal-description' sx={{ mt: 2 }}>

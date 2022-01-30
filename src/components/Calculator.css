@@ -25,6 +25,7 @@
   justify-content: center;
   position: relative;
   padding: 64px 128px;
+  margin-bottom: 7%;
 }
 
 #calculator {
@@ -82,4 +83,39 @@
 
 .crypto-p {
   font-size: 1rem;
+}
+
+#oneBTC {
+  color: #1f2374;
+  font-size: 2em;
+  margin-bottom: 18px;
+}
+
+#oneBTC span {
+  font-size: 0.9rem;
+  margin-left: 0.6rem;
+}
+
+#oneBTC_seperator {
+  font-size: 1em;
+  margin-top: 0px;
+  margin-right: 16px;
+  margin-bottom: 0px;
+  margin-left: 16px;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+}
+
+.right-input {
+  margin-left: 25px;
+}
+
+.calc-p {
+  font-size: 0.8rem;
 }

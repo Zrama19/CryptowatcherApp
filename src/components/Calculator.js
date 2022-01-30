@@ -8,6 +8,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import './Calculator.css';
 import axios from 'axios';
+import LinearProgress from '@mui/material/LinearProgress';
+import CoinOption from './CoinOption';
 
 const style = {
   position: 'absolute',
@@ -28,12 +30,21 @@ const btnStyle = {
 const Calculator = (props) => {
   const [account, setAccount] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [currency, setCurrency] = useState();
+  const [money, setMoney] = useState();
   const [modalLoading, setModalLoading] = useState(true);
   const [accountLoading, setAccountLoading] = useState(true);
+  const [chosenLoading, setChosenLoading] = useState(true);
+  const [coinData, setCoinData] = useState([]);
+  const [coinOption, setCoinOption] = useState();
   const [open, setOpen] = useState(false);
+  const [coin, setCoin] = useState();
+  const [chosenData, setChosenData] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const url = `https://api.coingecko.com/api/v3/coins/bitcoin`;
+
+  const [coinLoading, setCoinLoading] = useState(true);
 
   const accountHandle = () => {
     if (window.ethereum) {
@@ -41,6 +52,17 @@ const Calculator = (props) => {
     } else {
       setAccountLoading(true);
     }
+  };
+
+  const getCoin = (e) => {
+    setCoin(e.target.value);
+  };
+  const getCurrency = (e) => {
+    setCurrency(e.target.value.toLowerCase());
+  };
+
+  const getMoney = (e) => {
+    setMoney(e.target.value);
   };
 
   useEffect(() => {
@@ -69,6 +91,9 @@ const Calculator = (props) => {
     setIsLoading(true);
   }
 
+  console.log(money);
+  console.log(currency);
+  console.log(chosenData[0]?.current_price);
   const providerOptions = {};
   const web3Modal = new Web3Modal({
     network: 'mainnet',
@@ -80,12 +105,49 @@ const Calculator = (props) => {
     await axios
       .get(url)
       .then((response) => {
-        console.log(response);
+        setCoinData(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  const getChosenApi = async () => {
+    const url2 = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coin}&order=market_cap_desc&per_page=100&page=1&sparkline=false`;
+    await axios
+      .get(url2)
+      .then((response) => {
+        setChosenData(response.data);
+        setChosenLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getChosenApi();
+    // eslint-disable-next-line
+  }, [coin, currency]);
+
+  useEffect(() => {
+    getCoinApi();
+    // eslint-disable-next-line
+  }, [url]);
+
+  useEffect(() => {
+    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1=&sparkline=false`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        setCoinOption(response.data);
+        setCoinLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div className='calculator'>
@@ -160,14 +222,61 @@ const Calculator = (props) => {
             </p>
           </div>
           <div>
-            <div id='calculator'>
-              <p>
-                PogO fadkj adlkfjdlk ajflkdj alfdkfj aljdfk ds adsa dsa da fdfas
-                da ad
-              </p>
-
-              <p onClick={getCoinApi}>Click Me!</p>
-            </div>
+            {coinLoading ? (
+              <Box sx={{ width: '100%' }}>
+                <LinearProgress />
+              </Box>
+            ) : (
+              <div id='calculator'>
+                <h3>How the crypto calculator works:</h3>
+                <p className='crypto-p'>
+                  Cryptowatcher's crypto calculator does the math so you don't
+                  have to, giving real rates in real time. Convert fiat to
+                  crypto in the blink of an eye. Try it out yourself!
+                </p>
+                <div id='oneBTC'>
+                  1<span>{coinData.symbol?.toUpperCase()}</span>
+                  <span id='oneBTC_seperator'>=</span>
+                  {coinData?.market_data?.current_price?.usd}
+                  <span>USD</span>
+                </div>
+                <div className='inputBox'>
+                  <div>
+                    <p className='calc-p'>
+                      Choose an amount, the Coin, and your Fiat of choice.
+                    </p>
+                    <input type='number' onChange={getMoney}></input>
+                    <select name='cryptos' onChange={getCoin}>
+                      <option value='null'>----</option>
+                      {coinOption.map((coinOption, index) => {
+                        return (
+                          <CoinOption coinOption={coinOption} key={index} />
+                        );
+                      })}
+                    </select>
+                    <select name='currencies' onChange={getCurrency} required>
+                      <option value='null'>----</option>
+                      <option value='USD'>USD</option>
+                      <option value='RUB'>RUB</option>
+                      <option value='AED'>AED</option>
+                    </select>
+                  </div>
+                </div>
+                <div className='inputBox'>
+                  <div>
+                    {chosenLoading ? null : (
+                      <div id='oneBTC'>
+                        {money}
+                        <span>{coin}</span>
+                        <span id='oneBTC_seperator'>=</span>
+                        {money * chosenData[0]?.current_price?.toFixed(0, 4)}
+                        <span>{currency}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
