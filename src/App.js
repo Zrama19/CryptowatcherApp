@@ -8,7 +8,7 @@ import Future from './components/Calculator';
 import { Web3ReactProvider } from '@web3-react/core';
 import Web3 from 'web3';
 import Footer from './components/Footer';
-import ResponsiveAppBar from './components/NavBussy';
+import ResponsiveAppBar from './components/Navbar';
 import About from './components/About';
 
 const getLibrary = (provider) => {

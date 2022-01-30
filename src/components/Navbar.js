@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import logo from '../assets/CW-logos.jpeg';
-import './NavBussy.css';
+import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
 
 const ResponsiveAppBar = () => {

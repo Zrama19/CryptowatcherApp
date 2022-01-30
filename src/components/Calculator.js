@@ -7,6 +7,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import './Calculator.css';
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -20,6 +21,10 @@ const style = {
   p: 4,
 };
 
+const btnStyle = {
+  mt: 2,
+};
+
 const Calculator = (props) => {
   const [account, setAccount] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +33,7 @@ const Calculator = (props) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const url = `https://api.coingecko.com/api/v3/coins/bitcoin`;
 
   const accountHandle = () => {
     if (window.ethereum) {
@@ -70,11 +76,23 @@ const Calculator = (props) => {
     providerOptions, // required
   });
 
+  const getCoinApi = async () => {
+    await axios
+      .get(url)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
-    <div className='container'>
+    <div className='calculator'>
       <div className='metamask'>
         {isLoading ? (
           <Button
+            sx={btnStyle}
             variant='contained'
             onClick={() => {
               connectPrompt();
@@ -86,6 +104,7 @@ const Calculator = (props) => {
           </Button>
         ) : (
           <Button
+            sx={btnStyle}
             variant='contained'
             onClick={() => {
               disconnect();
@@ -125,8 +144,32 @@ const Calculator = (props) => {
       </div>
       <div>
         {accountLoading ? null : (
-          <p>You are currently connected with Wallet Address: {account}</p>
+          <p className='wallet-account'>
+            You are currently connected with Wallet Address:{' '}
+            <strong>{account}</strong>{' '}
+          </p>
         )}
+      </div>
+      <div>
+        <div className='content-flex'>
+          <div className='calc-left'>
+            <h1 className='crypto-h1'>Crypto Calculator.</h1>
+            <p className='crypto-p'>
+              Check real time rates for hundreds of cryptocurrencies, and
+              convert between popular fiat currencies.
+            </p>
+          </div>
+          <div>
+            <div id='calculator'>
+              <p>
+                PogO fadkj adlkfjdlk ajflkdj alfdkfj aljdfk ds adsa dsa da fdfas
+                da ad
+              </p>
+
+              <p onClick={getCoinApi}>Click Me!</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

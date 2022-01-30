@@ -1,11 +1,85 @@
 .metamask {
   margin-top: 7%;
-  align-items: center;
+  display: block;
+  text-align: center;
+}
+
+.calculator {
+  background-color: var(--background);
+}
+
+.centeredasf {
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+}
+
+.wallet-account {
+  text-align: center;
+}
+
+.content-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  padding: 64px 128px;
+}
+
+#calculator {
+  max-width: 500px;
+  padding: 48px 36px;
+  background-color: #fff;
+  border: 2px solid #d8dae5;
+  border-radius: 5px;
+  margin-left: 64px;
+  box-shadow: 5px 5px 20px rgb(0 0 0 / 20%);
+  position: relative;
+  overflow: hidden;
+}
+
+.calc-title {
+  font-size: 1.2em;
+  /* font-style: oblique; */
+}
+
+.calc-left {
+  max-width: 450px;
+  width: 50%;
 }
 
 @media (max-width: 768px) {
   .metamask {
     margin-top: 15%;
-    margin-left: 3%;
   }
+  #calculator {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    margin-top: 24px;
+    border-width: 0px;
+    box-shadow: none;
+  }
+  .calc-title {
+    max-width: initial;
+  }
+  .content-flex {
+    flex-direction: column;
+    padding-left: 24px;
+    padding-right: 24px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 300px;
+    background-size: initial;
+    background-position: 30% 100%;
+  }
+}
+
+.crypto-h1 {
+  color: #519259;
+}
+
+.crypto-p {
+  font-size: 1rem;
 }
