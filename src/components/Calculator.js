@@ -267,7 +267,7 @@ const Calculator = (props) => {
                     {chosenLoading ? null : (
                       <div id='oneBTC'>
                         {money}
-                        <span>{coin}</span>
+                        <span>{chosenData[0]?.name}</span>
                         <span id='oneBTC_seperator'>=</span>
                         {money * chosenData[0]?.current_price?.toFixed(0, 4)}
                         <span>{currency}</span>
