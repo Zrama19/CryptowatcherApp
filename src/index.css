@@ -188,3 +188,15 @@ html {
 .left-h3 {
   padding-bottom: 4%;
 }
+
+.about-p {
+  text-align: center;
+  margin: auto;
+  width: 30%;
+}
+
+@media (max-width: 768px) {
+  .about-p {
+    width: 60%;
+  }
+}
