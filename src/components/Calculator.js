@@ -30,15 +30,15 @@ const btnStyle = {
 const Calculator = (props) => {
   const [account, setAccount] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [currency, setCurrency] = useState();
-  const [money, setMoney] = useState();
+  const [currency, setCurrency] = useState('usd');
+  const [money, setMoney] = useState(1);
   const [modalLoading, setModalLoading] = useState(true);
   const [accountLoading, setAccountLoading] = useState(true);
   const [chosenLoading, setChosenLoading] = useState(true);
   const [coinData, setCoinData] = useState([]);
   const [coinOption, setCoinOption] = useState();
   const [open, setOpen] = useState(false);
-  const [coin, setCoin] = useState();
+  const [coin, setCoin] = useState('bitcoin');
   const [chosenData, setChosenData] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -111,6 +111,7 @@ const Calculator = (props) => {
 
   const getChosenApi = async () => {
     const url2 = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coin}&order=market_cap_desc&per_page=100&page=1&sparkline=false`;
+    console.log(url2);
     await axios
       .get(url2)
       .then((response) => {
@@ -242,9 +243,12 @@ const Calculator = (props) => {
                     <p className='calc-p'>
                       Choose an amount, the Coin, and your Fiat of choice.
                     </p>
-                    <input type='number' onChange={getMoney}></input>
+                    <input
+                      type='number'
+                      defaultValue='1'
+                      onChange={getMoney}
+                    ></input>
                     <select name='cryptos' onChange={getCoin}>
-                      <option value='null'>----</option>
                       {coinOption.map((coinOption, index) => {
                         return (
                           <CoinOption coinOption={coinOption} key={index} />
@@ -252,7 +256,6 @@ const Calculator = (props) => {
                       })}
                     </select>
                     <select name='currencies' onChange={getCurrency} required>
-                      <option value='null'>----</option>
                       <option value='USD'>USD</option>
                       <option value='RUB'>RUB</option>
                       <option value='AED'>AED</option>
@@ -266,7 +269,7 @@ const Calculator = (props) => {
                         {money}
                         <span>{chosenData[0]?.name}</span>
                         <span id='oneBTC_seperator'>=</span>
-                        {(money * chosenData[0]?.current_price).toFixed(2)}
+                        {money * chosenData[0]?.current_price}
                         <span>{currency}</span>
                       </div>
                     )}
