@@ -78,11 +78,13 @@
 }
 
 .crypto-h1 {
-  color: #519259;
+  color: var(--primary);
 }
 
 .crypto-p {
   font-size: 1rem;
+  margin-top: 5%;
+  margin-bottom: 3%;
 }
 
 #oneBTC {
@@ -118,4 +120,7 @@
 
 .calc-p {
   font-size: 0.8rem;
+}
+
+.disclaimer {
 }

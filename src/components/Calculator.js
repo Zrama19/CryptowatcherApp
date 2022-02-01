@@ -111,7 +111,7 @@ const Calculator = (props) => {
 
   const getChosenApi = async () => {
     const url2 = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coin}&order=market_cap_desc&per_page=100&page=1&sparkline=false`;
-    console.log(url2);
+
     await axios
       .get(url2)
       .then((response) => {
@@ -203,6 +203,28 @@ const Calculator = (props) => {
         )}
       </div>
       <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
+        >
+          <Box sx={style}>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              The rates displayed by the calculator represent market exchange
+              rates, and are provided for informational and estimation purposes
+              only. The calculator may allow you to calculate exchange rates of
+              currencies currently not available for trading. The calculator is
+              based on a third party service API, and may not be completely
+              accurate.
+            </Typography>
+
+            <Button onClick={handleClose}>Got it!</Button>
+          </Box>
+        </Modal>
+        }
+      </div>
+      <div>
         {accountLoading ? null : (
           <p className='wallet-account'>
             You are currently connected with Wallet Address:{' '}
@@ -213,7 +235,7 @@ const Calculator = (props) => {
       <div>
         <div className='content-flex'>
           <div className='calc-left'>
-            <h1 className='crypto-h1'>Crypto Calculator.</h1>
+            <h1 className='crypto-h1'>Crypto Calculator</h1>
             <p className='crypto-p'>
               Check real time rates for hundreds of cryptocurrencies, and
               convert between popular fiat currencies.
@@ -245,9 +267,11 @@ const Calculator = (props) => {
                     </p>
                     <input
                       type='number'
+                      min='0'
                       defaultValue='1'
                       onChange={getMoney}
                     ></input>
+
                     <select name='cryptos' onChange={getCoin}>
                       {coinOption.map((coinOption, index) => {
                         return (
@@ -274,6 +298,9 @@ const Calculator = (props) => {
                       </div>
                     )}
                   </div>
+                </div>
+                <div className='disclaimer'>
+                  <Button onClick={handleOpen}>Disclaimer</Button>
                 </div>
               </div>
             )}
