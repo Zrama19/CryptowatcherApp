@@ -222,7 +222,6 @@ const Calculator = (props) => {
             <Button onClick={handleClose}>Got it!</Button>
           </Box>
         </Modal>
-        }
       </div>
       <div>
         {accountLoading ? null : (
