@@ -47,7 +47,7 @@ const ResponsiveAppBar = () => {
   };
   return (
     <AppBar position='static' onScroll={handleCloseNavMenu}>
-      <Container maxWidth='xl' className='appbar'>
+      <Container maxWidth='xxl' className='appbar'>
         <Toolbar disableGutters>
           <Typography
             variant='h6'
