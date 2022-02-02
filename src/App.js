@@ -32,7 +32,6 @@ const App = () => {
               </div>
             }
           ></Route>
-
           <Route
             path='/coins/:path'
             element={<Coins function={currentCoinPage} />}

@@ -237,3 +237,30 @@ html {
   -ms-user-select: none; /* IE 10+ */
   user-select: none; /* Likely future */
 }
+
+.left-button {
+  position: fixed;
+  top: 50%;
+}
+
+.right-button {
+  position: fixed;
+  top: 50%;
+  right: 0%;
+}
+
+@media (max-width: 768px) {
+  .left-button {
+    position: relative;
+    bottom: 60%;
+  }
+  .right-button {
+    position: relative;
+    bottom: 60%;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
