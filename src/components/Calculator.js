@@ -279,6 +279,7 @@ const Calculator = (props) => {
                     <input
                       type='number'
                       min='0'
+                      max='99999999'
                       defaultValue='1'
                       onChange={getMoney}
                     ></input>

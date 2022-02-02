@@ -47,10 +47,10 @@
   text-align: center;
   box-sizing: border-box;
 }
-
+/* 
 .featured .right .card:hover {
   box-shadow: rgb(0 0 0 / 20%) 0px 8px 24px;
-}
+} */
 
 .featured .card .top {
   display: flex;
