@@ -7,13 +7,11 @@ const Cryptocard = (props) => {
   return (
     <div className='card' onClick={() => props.handleModalClick(props.data.id)}>
       <div className='top'>
-        {/* <img src={BTC} alt='/' /> */}
         <img className='img-crypto-card' src={props.data.image} alt='' />
       </div>
       <div>
         <h5>{props.data.name}</h5>
         <p>${props.data.current_price?.toLocaleString()}</p>
-        {/* <p>{props.data.ath}</p> */}
       </div>
 
       {props.data.price_change_percentage_24h < 0 ? (

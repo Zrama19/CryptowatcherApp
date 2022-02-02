@@ -10,6 +10,7 @@ import Web3 from 'web3';
 import Footer from './components/Footer';
 import ResponsiveAppBar from './components/Navbar';
 import About from './components/About';
+import Coin from './components/Coin';
 
 const getLibrary = (provider) => {
   return new Web3(provider);
@@ -17,6 +18,7 @@ const getLibrary = (provider) => {
 
 const App = () => {
   const currentCoinPage = (path) => {};
+  const currentCoinChosen = (path2) => {};
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Router>
@@ -34,6 +36,10 @@ const App = () => {
           <Route
             path='/coins/:path'
             element={<Coins function={currentCoinPage} />}
+          ></Route>
+          <Route
+            path='/:path2'
+            element={<Coin function={currentCoinChosen} />}
           ></Route>
 
           <Route path='/signup' element={<Signup />}></Route>

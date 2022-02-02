@@ -60,6 +60,7 @@ const Newdata = (props) => {
               .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           </p>
           <Button onClick={handleClose}>Close modal</Button>
+          <Button onClick={() => props.goToCoin()}>Tell Me More!</Button>
         </Box>
       </Modal>
     </div>

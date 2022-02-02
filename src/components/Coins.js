@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Cryptocard from './Cryptocard';
 import './Coins.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Newdata from './Newdata';
 
 const Coins = (props) => {
@@ -11,6 +11,7 @@ const Coins = (props) => {
   const modalId = [];
   const [modalData, setModalData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [coinPage, setCoinPage] = useState();
   const prev = '<';
   const next = '>';
   const click = [];
@@ -31,6 +32,9 @@ const Coins = (props) => {
   };
 
   const location = useLocation();
+  console.log(location);
+
+  const navigate = useNavigate();
 
   const slicePage = location.pathname;
   const pageIdSliced = slicePage.slice(7, 100);
@@ -64,7 +68,14 @@ const Coins = (props) => {
     click.push(true);
     modalId.pop(data);
     click.pop(true);
+    setCoinPage(data);
   };
+
+  const goToCoin = () => {
+    navigate(`/${coinPage}`);
+  };
+
+  console.log(coinPage);
 
   if (!data) return null;
 
@@ -103,7 +114,11 @@ const Coins = (props) => {
 
       <div>
         {isLoading ? null : (
-          <Newdata handleNewdata={click} modalData={modalData} />
+          <Newdata
+            handleNewdata={click}
+            modalData={modalData}
+            goToCoin={goToCoin}
+          />
         )}
       </div>
     </div>

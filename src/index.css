@@ -200,3 +200,29 @@ html {
     width: 60%;
   }
 }
+
+.coin-container {
+  padding-top: 80px;
+  text-align: center;
+}
+
+.coin-img-size {
+  width: 10%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.market-cap {
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.coin-prices {
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.coin-each {
+  padding-top: 0.2%;
+  padding-bottom: 0.2%;
+}
