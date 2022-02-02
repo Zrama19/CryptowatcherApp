@@ -10,7 +10,6 @@ import './Calculator.css';
 import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import CoinOption from './CoinOption';
-import { useLocation } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -47,9 +46,6 @@ const Calculator = (props) => {
   const url = `https://api.coingecko.com/api/v3/coins/bitcoin`;
 
   const [coinLoading, setCoinLoading] = useState(true);
-
-  const location = useLocation();
-  console.log(location);
 
   const accountHandle = () => {
     if (window.ethereum) {
