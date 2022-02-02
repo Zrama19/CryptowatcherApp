@@ -56,6 +56,8 @@ const Coins = (props) => {
   useEffect(() => {
     if (stopForward <= 100 && stopForward > 0) {
       navigate(`/coins/${Number(pageIdSliced)}`);
+      setLeftButton(false);
+      setRightButton(false);
     } else {
       navigate('/error');
     }
