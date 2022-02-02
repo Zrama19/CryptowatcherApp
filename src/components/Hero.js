@@ -2,9 +2,11 @@ import React from 'react';
 import './Hero.css';
 import Crypto from '../assets/pogo.png';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 const Hero = () => {
   const navigate = useNavigate();
+  const { handleSubmit } = useForm();
 
   const handleKeypress = (e) => {
     //it triggers by pressing the enter key
@@ -12,7 +14,9 @@ const Hero = () => {
       handleSubmit();
     }
   };
-  const handleSubmit = () => {
+  const onSubmit = (data) => {
+    console.log(data);
+
     navigate('/signup');
   };
   return (
@@ -24,15 +28,16 @@ const Hero = () => {
           <h1>Keep up to date with real time prices</h1>
           <p>Buy, Sell, and store hundreds of Cryptocurrencies</p>
           <div className='input-container'>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <input
                 className='input-hero'
                 type='email'
                 placeholder='Enter your email'
                 onSubmit={handleKeypress}
+                required
               />
 
-              <button onClick={handleSubmit} className='btn'>
+              <button type='submit' className='btn'>
                 Learn More
               </button>
             </form>

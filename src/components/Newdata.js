@@ -37,7 +37,12 @@ const Newdata = (props) => {
         aria-describedby='modal-modal-description'
       >
         <Box className='mobile' sx={style}>
-          <Typography id='modal-modal-title' variant='h6' component='h2'>
+          <Typography
+            onselectstart='return false'
+            id='modal-modal-title'
+            variant='h6'
+            component='h2'
+          >
             {props.modalData.name}
 
             <img

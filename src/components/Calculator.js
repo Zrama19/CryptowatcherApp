@@ -41,6 +41,7 @@ const Calculator = (props) => {
   const [open, setOpen] = useState(false);
   const [coin, setCoin] = useState('bitcoin');
   const [chosenData, setChosenData] = useState([]);
+  const [disclaimerLoading, setDisclaimerLoading] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const url = `https://api.coingecko.com/api/v3/coins/bitcoin`;
@@ -56,6 +57,11 @@ const Calculator = (props) => {
     } else {
       setAccountLoading(true);
     }
+  };
+
+  const handleDisclaimer = () => {
+    setDisclaimerLoading(false);
+    handleOpen();
   };
 
   const getCoin = (e) => {
@@ -206,27 +212,29 @@ const Calculator = (props) => {
           </Modal>
         )}
       </div>
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Box sx={style}>
-            <Typography id='modal-modal-title' variant='h6' component='h2'>
-              The rates displayed by the calculator represent market exchange
-              rates, and are provided for informational and estimation purposes
-              only. The calculator may allow you to calculate exchange rates of
-              currencies currently not available for trading. The calculator is
-              based on a third party service API, and may not be completely
-              accurate.
-            </Typography>
+      {disclaimerLoading ? null : (
+        <div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby='modal-modal-title'
+            aria-describedby='modal-modal-description'
+          >
+            <Box sx={style}>
+              <Typography id='modal-modal-title' variant='h6' component='h2'>
+                The rates displayed by the calculator represent market exchange
+                rates, and are provided for informational and estimation
+                purposes only. The calculator may allow you to calculate
+                exchange rates of currencies currently not available for
+                trading. The calculator is based on a third party service API,
+                and may not be completely accurate.
+              </Typography>
 
-            <Button onClick={handleClose}>Got it!</Button>
-          </Box>
-        </Modal>
-      </div>
+              <Button onClick={handleClose}>Got it!</Button>
+            </Box>
+          </Modal>
+        </div>
+      )}
       <div>
         {accountLoading ? null : (
           <p className='wallet-account'>
@@ -303,7 +311,7 @@ const Calculator = (props) => {
                   </div>
                 </div>
                 <div className='disclaimer'>
-                  <Button onClick={handleOpen}>Disclaimer</Button>
+                  <Button onClick={handleDisclaimer}>Disclaimer</Button>
                 </div>
               </div>
             )}

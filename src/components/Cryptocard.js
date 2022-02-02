@@ -10,8 +10,10 @@ const Cryptocard = (props) => {
         <img className='img-crypto-card' src={props.data.image} alt='' />
       </div>
       <div>
-        <h5>{props.data.name}</h5>
-        <p>${props.data.current_price?.toLocaleString()}</p>
+        <h5 className='row-of-icons'>{props.data.name}</h5>
+        <p className='row-of-icons'>
+          ${props.data.current_price?.toLocaleString()}
+        </p>
       </div>
 
       {props.data.price_change_percentage_24h < 0 ? (
