@@ -223,6 +223,10 @@ html {
 }
 
 .coin-each {
-  padding-top: 0.2%;
-  padding-bottom: 0.2%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.coin-pic {
+  padding-left: 3%;
 }

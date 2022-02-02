@@ -40,19 +40,23 @@ const Newdata = (props) => {
           <Typography id='modal-modal-title' variant='h6' component='h2'>
             {props.modalData.name}
 
-            <img src={props.modalData.image.thumb} alt='/'></img>
+            <img
+              className='coin-pic'
+              src={props.modalData.image.thumb}
+              alt='/'
+            ></img>
           </Typography>
           <Typography id='modal-modal-description' sx={{ mt: 2 }}>
             Coin Gecko Coin Rank: {props.modalData.coingecko_rank}
           </Typography>
-          <p>
+          <p className='coin-each'>
             Current Price: $
             {props.modalData.market_data.current_price.usd
               ?.toFixed(2)
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           </p>
-          <p>
+          <p className='coin-each'>
             Market Cap: $
             {props.modalData.market_data.market_cap.usd
               ?.toFixed(2)

@@ -71,8 +71,10 @@ const Coin = () => {
         </p>
       </div>
       <h3 className='market-cap'>
-        The current market cap of {coinData.name} is{' '}
-        {coinData.market_data?.market_cap?.usd} U.S. Dollars
+        The current market cap of {coinData.name} is $
+        {coinData.market_data?.market_cap?.usd
+          .toString()
+          ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
       </h3>
       <div className='coin-buttons'>
         <Button onClick={handleCoin}>Browse Coins</Button>
