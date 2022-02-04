@@ -116,7 +116,7 @@ html {
   margin-bottom: 5%;
   margin-left: auto;
   margin-right: auto;
-  width: 15%;
+  width: 45%;
 }
 
 .error-h1 {
@@ -145,6 +145,9 @@ html {
     width: 50%;
     height: 50%;
     margin-top: 15%;
+  }
+  .error {
+    margin-top: 25%;
   }
 }
 

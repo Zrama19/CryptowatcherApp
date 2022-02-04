@@ -1,5 +1,5 @@
 import React from 'react';
-import Zang from '../assets/zang.png';
+import Zang from '../assets/error.png';
 
 const ErrorPage = () => {
   return (
