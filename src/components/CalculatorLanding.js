@@ -9,6 +9,7 @@ const CalculatorLanding = () => {
   const handleSubmit = () => {
     navigate('/calculator');
   };
+
   return (
     <div className='hero'>
       <div className='container'>
